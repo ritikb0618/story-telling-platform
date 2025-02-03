@@ -1,5 +1,9 @@
 import './App.css'
-import { NavBar , Home , Discover  } from './Components/index';
+import { 
+  NavBar,
+  Home,
+  Discover,
+  } from './Components/index';
 import * as React from "react";
 import {
   createBrowserRouter,

@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Discover.css';
 import { useNavigate } from 'react-router-dom';
-import {Content} from '../index';
+import { Content } from '../index';
 
 const Discover = () => {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5; 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/data');
+        if (!response.ok) {
+          throw new Error(`HTTP Error status: ${response.status}`);
+        }
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchData();
+  }, []); 
 
   const categories = [
     { name: 'test', link: '/test' },
@@ -14,7 +33,7 @@ const Discover = () => {
     { name: 'test4', link: '/test4' }
   ];
 
-  const Sort = [
+  const sortOptions = [
     { name: 'Popularity' },
     { name: 'Recent' },
     { name: 'Tags' },
@@ -24,9 +43,20 @@ const Discover = () => {
     navigate(link);
   };
 
-  const handleOnChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); 
   };
+
+  const filteredData = data.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <div className="Discover">
@@ -34,37 +64,44 @@ const Discover = () => {
         <h1>Discover</h1>
         <div className='Categories'>
           {categories.map((category, index) => (
-            <div key={index}>
-              <button onClick={() => handleOnclick(category.link)}>{category.name}</button>
-            </div>
+            <button key={index} onClick={() => handleOnclick(category.link)}>
+              {category.name}
+            </button>
           ))}
         </div>
       </div>
+      
       <div className='Second-header'>
         <h2>Sort By</h2>
         <div>
-          {Sort.map((sort, index) => (
-            <div key={index}>
-              <button>{sort.name}</button>
-            </div>
+          {sortOptions.map((sort, index) => (
+            <button key={index}>{sort.name}</button>
           ))}
         </div>
+        
         <div className='Search-Bar'>
           <input
             type='text'
-            value={searchTerm}
-            onChange={handleOnChange}
+            value={searchQuery}
+            onChange={handleSearchChange}
             placeholder='Search for stories, jokes, and more...'
           />
         </div>
+        
         <div className='Filter-Bar'>
-          {/* You can render Content dynamically based on your data */}
-          <Content 
-            title="Example Title" 
-            author="Author Name" 
-            link="/example" 
-            imgUrl="https://via.placeholder.com/150"
-          />
+          {currentItems.length > 0 ? (
+            currentItems.map((item, index) => (
+              <Content 
+                key={index}
+                title={item.name}
+                author={item.author}
+                link={`/content/${item.id}`}
+                imgUrl={item.imageUrl || "https://via.placeholder.com/150"}
+              />
+            ))
+          ) : (
+            <p>No results found.</p>
+          )}
         </div>
       </div>
     </div>
