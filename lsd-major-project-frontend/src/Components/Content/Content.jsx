@@ -1,18 +1,20 @@
 import React from 'react';
 
-const Content = ({ title, author, link, imgUrl }) => {
-  const handleOnClick = (link) => {
-    
+const Content = ({ Title, Author, Image, Link }) => {
+  const handleOnClick = () => {
+    if (Link) {
+      window.open(Link, '_blank');
+    }
   };
 
   return (
     <div>
       <div>
-        <h3>{title}</h3>
-        <h4>{author}</h4>
-        <button onClick={() => handleOnClick(link)}>Read More</button>
+        <h3>{Title}</h3>
+        <h4>By: {Author}</h4>
+        <button onClick={handleOnClick}>Read More</button>
       </div>
-      <img src={imgUrl} alt="Content" />
+      <img src={Image} alt="Content" />
     </div>
   );
 };
