@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Discover.css';
-import { useNavigate } from 'react-router-dom';
-import {Content} from '../index'; 
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Content } from '../index';
 
 const Discover = () => {
   const navigate = useNavigate();
@@ -21,9 +21,9 @@ const Discover = () => {
         }
         const result = await response.json();
         setData(result);
-        setLoading(false); // Fix: Update loading state
+        setLoading(false);
       } catch (err) {
-        setError(err.message); // Fix: Set error message
+        setError(err.message);
         setLoading(false);
       }
     };
@@ -34,10 +34,11 @@ const Discover = () => {
   if (error) return <div className="error">Error: {error}</div>;
 
   const filteredData = data.filter((item) =>
-    item.Title && typeof item.Title === "string" &&
-    item.Title.toLowerCase().includes(searchQuery.toLowerCase())
+    (item.Title && typeof item.Title === "string" &&
+      item.Title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+    (item.Author && typeof item.Author === "string" &&
+      item.Author.toLowerCase().includes(searchQuery.toLowerCase()))
   );
-
 
   const categories = [
     { name: 'All', link: '/test' },
@@ -66,7 +67,6 @@ const Discover = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const handleSearchChange = (e) => {
@@ -89,41 +89,48 @@ const Discover = () => {
 
       <div className='Second-header'>
         <h2>Sort By</h2>
-        <div>
+        <div className='Sort-Bar'>
           {sortOptions.map((sort, index) => (
-            <button key={index}>{sort.name}</button>
+            <NavLink
+              key={index}
+              to={`/sort/${sort.name.toLowerCase()}`}
+              className={({ isActive }) => (isActive ? 'isActive' : '')}
+            >
+              {sort.name}
+            </NavLink>
           ))}
         </div>
+      </div>
 
-        <div className='Search-Bar'>
-          <input
-            type='text'
-            value={searchQuery}
-            onChange={handleSearchChange}
-            placeholder='Search for stories, jokes, and more...'
-          />
-        </div>
+      <div className='Search-Bar'>
+        <input
+          type='text'
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder='Search for stories, jokes, and more...'
+        />
+      </div>
 
-        <div className='Filter-Bar'>
-          {currentItems.map((item) => (
-            <Content key={item.id} {...item} /> 
-          ))}
-        </div>
-        <div>
-                <button
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </button>
-                <span> Page {currentPage} of {totalPages} </span>
-                <button
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                >
-                    Next
-                </button>
-            </div>
+      <div className='Filter-Bar'>
+        {currentItems.map((item) => (
+          <Content key={item.id} {...item} />
+        ))}
+      </div>
+
+      <div className='Pagination'>
+        <button
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span> Page {currentPage} of {totalPages} </span>
+        <button
+          onClick={() => setCurrentPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
