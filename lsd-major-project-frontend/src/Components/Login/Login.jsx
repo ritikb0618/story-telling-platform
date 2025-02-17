@@ -15,7 +15,7 @@ export default function AuthPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add validation logic here
-    console.log('Form submitted:', formData);
+    // console.log('Form submitted:', formData);
   };
 
   const handleInputChange = (e) => {

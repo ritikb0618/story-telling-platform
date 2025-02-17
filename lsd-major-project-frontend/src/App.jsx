@@ -10,40 +10,41 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <div>
-      <NavBar />
-      <Home/>
-    </div>
-  },
-  {
-    path: '/discover',
-    element: <div>
-      <NavBar />
-      <Discover/>
-    </div>
-  },
-  {
-    path: '/login',
-    element: <div>
-      <NavBar />
-      <Login />
-    </div>
-  },
-  {
-    path: '*',
-    element: <div>Not Found</div>
-  },
-]);
-function App() {
 
-  return (
-    <div className='App'>
-      <RouterProvider router={router} />
-    </div>
-  )
-}
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <div>
+//       <NavBar />
+//       <Home/>
+//     </div>
+//   },
+//   {
+//     path: '/discover',
+//     element: <div>
+//       <NavBar />
+//       <Discover/>
+//     </div>
+//   },
+//   {
+//     path: '/login',
+//     element: <div>
+//       <NavBar />
+//       <Login />
+//     </div>
+//   },
+//   {
+//     path: '*',
+//     element: <div>Not Found</div>
+//   },
+// ]);
+// function App() {
+
+//   return (
+//     <div className='App'>
+//       <RouterProvider router={router} />
+//     </div>
+//   )
+// }
 
 export default App

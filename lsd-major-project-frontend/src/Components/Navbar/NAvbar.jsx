@@ -10,7 +10,7 @@ function Navbar() {
   }
   return (
     <nav className="flex items-center justify-between py-4 px-8 bg-gray-800 text-white shadow-lg">
-      <div className="text-2xl font-bold bg-gray-800">Storyteller</div>
+      <div className="text-2xl font-bold bg-gray-800">StoryVerse</div>
 
       {/* User avatar and Search bar wrapper */}
       <div className="flex items-center space-x-6 ml-auto bg-gray-800">
