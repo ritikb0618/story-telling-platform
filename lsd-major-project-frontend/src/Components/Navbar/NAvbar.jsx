@@ -1,7 +1,13 @@
 import React from "react";
 import { Search } from "lucide-react"; // Import search icon
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate=useNavigate()
+
+  const handleImageClick=()=>{
+    navigate('/login')
+  }
   return (
     <nav className="flex items-center justify-between py-4 px-8 bg-gray-800 text-white shadow-lg">
       <div className="text-2xl font-bold bg-gray-800">Storyteller</div>
@@ -22,7 +28,8 @@ function Navbar() {
         <img
           src="https://via.placeholder.com/40"
           alt="User Avatar"
-          className="w-10 h-10 rounded-full border-2 border-gray-600"
+          className="w-10 h-10 rounded-full border-2 border-gray-600 cursor-pointer"
+          onClick={handleImageClick}
         />
       </div>
     </nav>

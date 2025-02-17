@@ -3,6 +3,7 @@ import {
   NavBar,
   Home,
   Discover,
+  Login,
   } from './Components/index';
 import * as React from "react";
 import {
@@ -22,6 +23,13 @@ const router = createBrowserRouter([
     element: <div>
       <NavBar />
       <Discover/>
+    </div>
+  },
+  {
+    path: '/login',
+    element: <div>
+      <NavBar />
+      <Login />
     </div>
   },
   {
