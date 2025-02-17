@@ -17,6 +17,21 @@ function Home() {
       genre: "Fantasy, Adventure",
       img: "https://via.placeholder.com/400x250",
     },
+    {
+      title: "The house that time forgot",
+      genre: "Fantasy, Adventure",
+      img: "https://via.placeholder.com/400x250",
+    },
+    {
+      title: "The house that time forgot",
+      genre: "Fantasy, Adventure",
+      img: "https://via.placeholder.com/400x250",
+    },
+    {
+      title: "The house that time forgot",
+      genre: "Fantasy, Adventure",
+      img: "https://via.placeholder.com/400x250",
+    },
   ];
 
   const collaborations = [
@@ -53,41 +68,43 @@ function Home() {
       genre: "Fantasy, Adventure",
       img: "https://via.placeholder.com/400x250",
     },
+    
   ];
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
 
-      <main className="container mx-auto px-6 py-8">
-        {/* Featured Stories */}
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">Featured Stories</h2>
-          <div className="grid grid-cols-1 gap-6">
-            {stories.map((story, index) => (
-              <StoryCard key={index} story={story} />
-            ))}
-          </div>
-        </section>
+<main className="container mx-auto px-6 py-8 flex flex-col">
+        
+<section className="mb-10">
+  <h2 className="text-2xl font-semibold mb-4 text-center">Featured Stories</h2>
+  <div className="flex gap-20 flex-wrap justify-center p-4 space-x-2">
+    {stories.map((story, index) => (
+      <StoryCard key={index} story={story} />
+    ))}
+  </div>
+</section>
 
-        {/* Recent Collaborations */}
+
         <section className="mb-10">
-          <h2 className="text-2xl font-semibold mb-4">Recent Collaborations</h2>
-          <div className="grid grid-cols-1 gap-6">
+          <h2 className="text-2xl font-semibold mb-4 text-center">Recent Collaborations</h2>
+          <div className="flex gap-20 flex-wrap justify-center p-4 space-x-2">
             {collaborations.map((story, index) => (
               <StoryCard key={index} story={story} />
             ))}
           </div>
         </section>
 
-        {/* Jokes & Short Stories */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Jokes & Short Stories</h2>
-          <div className="grid grid-cols-1 gap-6">
+        
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 text-center">Jokes & Short Stories</h2>
+          <div className="flex gap-20 flex-wrap justify-center p-4 space-x-2">
             {shortStories.map((story, index) => (
               <StoryCard key={index} story={story} />
             ))}
           </div>
         </section>
+        
       </main>
     </div>
   );
@@ -95,7 +112,7 @@ function Home() {
 
 function StoryCard({ story }) {
   return (
-    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg w-[300px]">
       <img src={story.img} alt={story.title} className="w-full h-48 object-cover" />
       <div className="p-4">
         <h3 className="text-lg font-semibold">{story.title}</h3>
